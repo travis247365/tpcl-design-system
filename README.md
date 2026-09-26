@@ -1,25 +1,106 @@
-# CODING AGENTS: READ THIS FIRST
+# @tpcl/design-system
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+React implementation of the **TPCL — Travis Paul Consulting** design system (v1.0), built from the
+Claude Design handoff in [`project/`](project/). The spec lives in [`project/README.md`](project/README.md);
+`src/styles/tokens.css` is that handoff's `tokens.css`, verbatim, and a test keeps it that way.
+The handoff's original note for coding agents is kept at [`project/HANDOFF.md`](project/HANDOFF.md).
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+> **Example content is synthetic.** Client names (Northwind plc, Client A/B, Example Co), portfolio
+> figures and contact details in the templates and docs are placeholders, not engagement data. The
+> sample figures still reconcile — segment rows sum to their totals — because the system requires it.
 
-## What you should do — IMPORTANT
+## What's here
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+| Path | What |
+|---|---|
+| `src/styles/` | `tokens.css` (source of truth) · `fonts.css` (Poppins 400/500/700) · `logo.css` (logo cuts) · `extensions.css` (deltas, provenance chips, KPI row, horizontal timeline, button states, nested-mode fixes) |
+| `src/components/` | Motifs (`AccentBlock`, `IndexChip`, `OutlineRect`, `OutlineCard`, `Timeline`, `HorizontalTimeline`, `Step`, `LogoMark`), `Text`, `Surface`/`Split`, `Button`, `Card`, `Stat`/`KpiRow`/`Delta`/`ProvenanceChip`/`Sparkline`, `Table`, `Quote`, `Tag`, `Canvas`/`SafeZone`/`KeepOut` |
+| `src/templates/` | Slide masters A–D · website (nav, hero, services, statement, proof, CTA band, footer) · LinkedIn (banner, company cover, single image, carousel cover/content/CTA) · social (square, portrait, story, WhatsApp Status) · `Emailer` |
+| `src/email.tsx` | `renderEmail(props)` → paste-ready, table-based, inline-styled HTML |
+| `src/assets/` | Fonts and the white / black / colour logo PNGs (760 × 395), extracted from the handoff |
+| `docs/` | Vite docs app — rebuilds all 21 design pages from the library |
+| `scripts/export.mjs` | Renders every template to its delivery format |
 
-**Find the primary design file under `project/` and read it top to bottom.** The chat transcripts will tell you which file the user was last iterating on. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## Use
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+```tsx
+import '@tpcl/design-system/styles.css';
+import { Button, KpiRow, Stat, Delta, ProvenanceChip } from '@tpcl/design-system';
 
-## About the design files
+<KpiRow>
+  <Stat value="USD 105.5m" label="Book reconciled" delta={<Delta direction="up">tied to source</Delta>} />
+  <Stat value="41,007" label="Accounts in scope" delta={<Delta direction="up">4.2% vs June</Delta>} />
+</KpiRow>
+<Button href="/diagnostic">Book a diagnostic</Button>
+```
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+Mode is set by the surface: wrap dark content in `<Surface mode="dark">` (or any `.tp-dark` element) and
+the accent block, outline strokes, timeline halo, ghost button and muted text follow it.
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+```ts
+import { renderEmail } from '@tpcl/design-system/email';
+const html = renderEmail({ logoUrl: 'https://…/tpc_white.png', /* … */ });
+```
 
-## Bundle contents
+`renderEmail` throws on a `data:` logo URL — Gmail and Outlook will not render it.
 
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `TPCL — Travis Paul Consulting` project files (HTML prototypes, assets, components)
+## Scripts
+
+```sh
+npm install
+npm run dev         # docs app at http://localhost:5173
+npm test            # token sync, component contracts, email rules
+npm run typecheck
+npm run build       # dist/ (library) + docs-dist/ (static docs site)
+npm run export      # exports/: PNG, carousel PDF, WhatsApp JPEG < 1 MB, emailer HTML
+```
+
+`export` needs a Chromium for Playwright (`npx playwright install chromium`, or set `CHROMIUM_PATH`).
+Set `TPCL_LOGO_URL` to the hosted white logo before exporting the email.
+
+| Output | Size | Format |
+|---|---|---|
+| `slide-{a..d}-*.png` | 1920 × 1080 (laid out at 1280 × 720, rendered ×1.5) | PNG |
+| `social-square-1080.png` · `social-portrait-1080x1350.png` · `social-story-1080x1920.png` | native | PNG |
+| `linkedin-banner-1584x396.png` · `linkedin-cover-1128x191.png` · `linkedin-single-1200x627.png` | native, 1× | PNG |
+| `linkedin-carousel.pdf` (+ `carousel-*.png`) | 1080 × 1350 per page | PDF |
+| `whatsapp-status-1080x1920.jpg` | 1080 × 1920 | JPEG, quality stepped down until < 1 MB |
+| `emailer-600.html` | 600 wide | HTML |
+
+Safe-zone and keep-out guides are `.tp-noexport` and are hidden during export.
+
+## Fidelity
+
+Every template canvas and doc page was pixel-diffed against the prototype. Slides, social, LinkedIn,
+website sections, carousel, cards/table/typography pages render identically. The remaining
+differences are deliberate fixes where the prototype broke its own written rules:
+
+- **Nested modes.** The prototypes put `tp-light` on `<body>`, so tokens.css turned outline strokes
+  charcoal and timeline halos white *inside* dark bays, and muted text grey. The spec says cyan
+  strokes on charcoal and a halo that matches the background; `extensions.css` makes the nearest
+  surface win.
+- **Timeline on blue-gray** (slide master B) gets a blue-gray halo, not charcoal.
+- **Website hero ghost button** was charcoal-on-charcoal (invisible); it now uses the dark ghost style.
+- **Nav CTA label** inherited the nav-link white (fails on cyan); it stays charcoal, at the prototype's 15px.
+
+## Known limits
+
+- The embedded Poppins is a **Latin-1 subset** (≈7.5 kB per weight). `→ ▲ ▼ − ✕` fall back to the
+  system stack — the prototypes do the same. Swap in full Poppins files under `src/assets/fonts/`
+  if you need wider coverage.
+- Logos are the 760 × 395 PNGs from the handoff; vector masters are not in this repo.
+- The fluid (below 900px) website layout follows the hero template's written responsive notes; only the
+  1440 desktop frame has a prototype to compare against.
+
+## Licence
+
+The **code** — everything under `src/`, `docs/` and `scripts/`, and the configuration files — is released
+under the [MIT licence](LICENSE).
+
+Two things in this repository are **not** covered by MIT:
+
+- **TPCL brand assets.** The Travis Paul Consulting name and the logo files (`src/assets/logo/`,
+  and the logos embedded in `project/`) are © Travis Paul Consulting Ltd, all rights reserved. They are
+  included so the design system renders; they may not be used to represent any other business.
+- **Poppins.** The font files in `src/assets/fonts/` are © 2020 The Poppins Project Authors and are
+  distributed under the [SIL Open Font License 1.1](src/assets/fonts/OFL.txt).

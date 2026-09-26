@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "TPCL — Travis Paul Consulting design system: tokens, React components and channel templates.",
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -25,7 +25,8 @@
     "**/*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "scripts": {
     "dev": "vite --config vite.docs.config.ts",
@@ -53,5 +54,9 @@
     "typescript": "^7.0.2",
     "vite": "^8.3.1",
     "vitest": "^5.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/travis247365/tpcl-design-system.git"
   }
 }
