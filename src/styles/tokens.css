@@ -1,0 +1,235 @@
+/* ============================================================
+   TPCL DESIGN SYSTEM — CORE
+   Travis Paul Consulting Ltd · v1.0
+   Two-mode system: charcoal DARK + white LIGHT.
+   Poppins only (400 / 500 / 700 — the three weights TPCL owns).
+   ============================================================ */
+
+/* ---------- 1. TOKENS ---------- */
+:root {
+  /* Brand core */
+  --tp-charcoal:      #3A3A3A;  /* primary dark bg + light-mode body text */
+  --tp-charcoal-deep: #2B2B2B;  /* layering / recessed panels on dark */
+  --tp-charcoal-soft: #4A4A4A;  /* raised panels on dark, hairlines */
+  --tp-white:         #FFFFFF;  /* light-mode bg + dark-mode text */
+  --tp-bluegray:      #B8C5D6;  /* split panels, index chips, accent cards */
+  --tp-cyan:          #00BCD4;  /* DARK-mode accent */
+  --tp-amber:         #FFC107;  /* LIGHT-mode accent */
+
+  /* Derived neutrals */
+  --tp-ink:        #3A3A3A;
+  --tp-ink-muted:  #6E6E6E;   /* 5.10:1 on white — AA body */
+  --tp-ink-faint:  #9A9A9A;   /* decorative / disabled only */
+  --tp-rule:       #E4E6EA;
+  --tp-surface:    #F5F6F8;
+  --tp-on-dark-muted: rgba(255,255,255,.66);
+
+  /* Client-overlay slot. Override per engagement; never replaces
+     the TPCL core, only tints one accent surface. */
+  --tp-client:      var(--tp-cyan);
+  --tp-client-ink:  var(--tp-charcoal);
+
+  /* Type */
+  --tp-font: "Poppins", "Century Gothic", "Futura", "Avenir Next",
+             -apple-system, "Segoe UI", sans-serif;
+
+  /* Spacing — 8px base */
+  --tp-1: 4px;  --tp-2: 8px;  --tp-3: 12px; --tp-4: 16px;
+  --tp-5: 24px; --tp-6: 32px; --tp-7: 48px; --tp-8: 64px;
+  --tp-9: 96px; --tp-10: 128px;
+
+  /* Geometry — TPCL is square. Radius is the exception, not the rule. */
+  --tp-radius: 0px;
+  --tp-radius-pill: 999px;
+  --tp-hairline: 1px;
+  --tp-rule-weight: 3px;
+}
+
+/* ---------- 2. RESET ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--tp-font);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--tp-ink);
+  background: var(--tp-white);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+/* ---------- 3. MODES ---------- */
+.tp-light { background: var(--tp-white); color: var(--tp-ink); }
+.tp-dark  { background: var(--tp-charcoal); color: var(--tp-white); }
+.tp-dark .tp-muted { color: var(--tp-on-dark-muted); }
+.tp-light .tp-muted { color: var(--tp-ink-muted); }
+
+/* Split: charcoal LHS + blue-gray RHS. The two blocks meet directly —
+   there is NO divider line. */
+.tp-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100%; }
+.tp-split > .tp-split-dark  { background: var(--tp-charcoal); color: var(--tp-white); }
+.tp-split > .tp-split-panel { background: var(--tp-bluegray); color: var(--tp-charcoal); }
+
+/* ---------- 4. TYPE SCALE ---------- */
+.tp-display {           /* dark-mode openers: bold, ALL CAPS */
+  font-weight: 700; font-size: clamp(38px, 5.4vw, 60px); line-height: 1.02;
+  letter-spacing: .01em; text-transform: uppercase; margin: 0;
+}
+.tp-title {             /* light-mode titles: regular, sentence case */
+  font-weight: 400; font-size: clamp(30px, 4vw, 44px); line-height: 1.12;
+  letter-spacing: -.01em; margin: 0;
+}
+.tp-h2 { font-weight: 700; font-size: 28px; line-height: 1.2;  letter-spacing: -.005em; margin: 0; }
+.tp-h3 { font-weight: 500; font-size: 20px; line-height: 1.3;  margin: 0; }
+.tp-body-lg { font-size: 18px; line-height: 1.6; margin: 0; }
+.tp-body    { font-size: 16px; line-height: 1.6; margin: 0; }
+.tp-caption { font-size: 13px; line-height: 1.45; margin: 0; }
+.tp-eyebrow {           /* the small tracked label above a title */
+  font-weight: 500; font-size: 12px; line-height: 1; letter-spacing: .16em;
+  text-transform: uppercase; margin: 0;
+}
+.tp-micro { font-size: 11px; line-height: 1.4; letter-spacing: .04em; margin: 0; }
+.tp-num {               /* big figures — tabular so columns align */
+  font-weight: 700; font-variant-numeric: tabular-nums;
+  letter-spacing: -.02em; line-height: 1;
+}
+
+/* ---------- 5. MOTIFS (the TPCL "DNA") ---------- */
+
+/* M1 · Top-left accent block. Amber on light, cyan on dark. ~2.8:1 ratio. */
+.tp-accent { width: 56px; height: 20px; display: block; background: var(--tp-amber); }
+.tp-dark .tp-accent, .tp-accent--dark { background: var(--tp-cyan); }
+.tp-accent--sm { width: 40px; height: 14px; }
+.tp-accent--lg { width: 84px; height: 30px; }
+
+/* M2 · Index chip — blue-gray square, white numeral, right edge. */
+.tp-chip {
+  width: 34px; height: 34px; background: var(--tp-bluegray);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--tp-white); font-weight: 700; font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* M3 · Signature logo lockup. Bottom-LEFT on dark, bottom-RIGHT on light.
+   The three cuts are injected by the bundler as .tp-mark--white / --black / --colour,
+   only for the pages that actually use them. Set height (or width) — the
+   locked 1.924:1 ratio supplies the other dimension. */
+.tp-mark { display: block; aspect-ratio: 760 / 395; background-repeat: no-repeat;
+           background-size: contain; background-position: left center; }
+.tp-logo { height: 34px; width: auto; }
+.tp-logo--sm { height: 26px; }
+.tp-logo--lg { height: 48px; }
+
+/* M4 · Cyan outline rectangle — decorative texture in negative space,
+   and as an outline card framing a statement. */
+.tp-outline {
+  border: 2px solid var(--tp-cyan); background: transparent;
+}
+.tp-outline-card { border: 2px solid var(--tp-cyan); padding: var(--tp-6); }
+.tp-light .tp-outline, .tp-light .tp-outline-card { border-color: var(--tp-charcoal); }
+
+/* M5 · Cyan timeline — vertical rule, rounded dots, numbered outline boxes. */
+.tp-timeline { position: relative; padding-left: 46px; margin: 0; list-style: none; }
+.tp-timeline::before {
+  content: ""; position: absolute; left: 16px; top: 10px; bottom: 10px;
+  width: 2px; background: var(--tp-cyan);
+}
+.tp-timeline > li { position: relative; padding-bottom: var(--tp-6); }
+.tp-timeline > li:last-child { padding-bottom: 0; }
+.tp-timeline > li::before {
+  content: ""; position: absolute; left: -37px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--tp-cyan); box-shadow: 0 0 0 4px var(--tp-charcoal);
+}
+.tp-light .tp-timeline > li::before { box-shadow: 0 0 0 4px var(--tp-white); }
+.tp-step {  /* numbered cyan-outlined box */
+  width: 40px; height: 40px; border: 2px solid var(--tp-cyan);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px; color: inherit;
+}
+
+/* ---------- 6. COMPONENTS ---------- */
+
+/* Buttons. NOTE: white-on-cyan is 2.30:1 and FAILS WCAG — cyan buttons
+   always carry charcoal text. */
+.tp-btn {
+  font-family: var(--tp-font); font-weight: 500; font-size: 15px;
+  letter-spacing: .02em; padding: 13px 26px; border: 2px solid transparent;
+  display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  text-decoration: none; line-height: 1;
+}
+.tp-btn--primary   { background: var(--tp-cyan);     color: var(--tp-charcoal); }
+.tp-btn--secondary { background: var(--tp-amber);    color: var(--tp-charcoal); }
+.tp-btn--solid     { background: var(--tp-charcoal); color: var(--tp-white); }
+.tp-btn--ghost     { background: transparent; color: var(--tp-charcoal); border-color: var(--tp-charcoal); }
+.tp-dark .tp-btn--ghost { color: var(--tp-white); border-color: var(--tp-cyan); }
+.tp-btn--sm { padding: 9px 18px; font-size: 13px; }
+
+/* Cards */
+.tp-card { background: var(--tp-white); border: 1px solid var(--tp-rule); padding: var(--tp-5); }
+.tp-card--panel { background: var(--tp-bluegray); border: none; color: var(--tp-charcoal); }
+.tp-card--dark  { background: var(--tp-charcoal-soft); border: none; color: var(--tp-white); }
+.tp-card--accent { border-left: var(--tp-rule-weight) solid var(--tp-cyan); }
+
+/* Stat tile */
+.tp-stat { display: flex; flex-direction: column; gap: var(--tp-2); }
+.tp-stat .tp-stat-value { font-weight: 700; font-size: 44px; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tp-stat .tp-stat-label { font-size: 13px; letter-spacing: .06em;
+  text-transform: uppercase; font-weight: 500; }
+.tp-light .tp-stat-label { color: var(--tp-ink-muted); }
+.tp-dark  .tp-stat-label { color: var(--tp-on-dark-muted); }
+
+/* Quote / statement */
+.tp-quote { font-size: 24px; line-height: 1.4; font-weight: 400;
+  border-left: var(--tp-rule-weight) solid var(--tp-cyan);
+  padding-left: var(--tp-5); margin: 0; }
+
+/* Table */
+.tp-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tp-table th { text-align: left; font-weight: 500; font-size: 12px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--tp-ink-muted);
+  padding: 10px 14px; border-bottom: 2px solid var(--tp-charcoal); }
+.tp-table td { padding: 12px 14px; border-bottom: 1px solid var(--tp-rule); }
+.tp-table td.tp-n { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Pills / tags */
+.tp-tag { display: inline-block; padding: 5px 12px; font-size: 12px;
+  font-weight: 500; letter-spacing: .04em; background: var(--tp-surface);
+  color: var(--tp-ink); }
+.tp-tag--cyan  { background: var(--tp-cyan);  color: var(--tp-charcoal); }
+.tp-tag--amber { background: var(--tp-amber); color: var(--tp-charcoal); }
+.tp-tag--panel { background: var(--tp-bluegray); color: var(--tp-charcoal); }
+
+/* Rules */
+.tp-rule { height: 1px; background: var(--tp-rule); border: 0; margin: 0; }
+.tp-dark .tp-rule { background: var(--tp-charcoal-soft); }
+
+/* ---------- 7. CANVAS (fixed-size social/ad frames) ---------- */
+.tp-canvas { position: relative; overflow: hidden; display: block; }
+.tp-canvas .tp-pad { position: absolute; inset: 0; display: flex;
+  flex-direction: column; }
+/* Safe-zone guide — visual aid only, hidden on export */
+.tp-safe { position: absolute; border: 1px dashed rgba(0,188,212,.55);
+  pointer-events: none; }
+.tp-safe::after { content: attr(data-label); position: absolute; top: 6px; left: 8px;
+  font-size: 16px; letter-spacing: .1em; color: rgba(0,188,212,.85);
+  text-transform: uppercase; font-weight: 500; }
+.tp-noexport { display: block; }
+.tp-export .tp-noexport { display: none !important; }
+
+/* ---------- 8. DOC-PAGE CHROME (for the spec cards themselves) ---------- */
+.tp-doc { padding: 40px; max-width: 1080px; margin: 0 auto; }
+.tp-doc h1 { font-weight: 700; font-size: 30px; line-height: 1.15; margin: 0 0 6px; letter-spacing: -.01em; }
+.tp-doc .tp-lede { color: var(--tp-ink-muted); font-size: 15px; margin: 0 0 32px; max-width: 62ch; }
+.tp-sec { margin: 0 0 40px; }
+.tp-sec > h2 { font-weight: 500; font-size: 12px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--tp-ink-muted); margin: 0 0 16px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--tp-rule); }
+.tp-grid { display: grid; gap: var(--tp-4); }
+.tp-note { font-size: 13px; color: var(--tp-ink-muted); line-height: 1.55; }
+.tp-note strong { color: var(--tp-ink); font-weight: 500; }
+code, .tp-code { font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.5px; background: var(--tp-surface); padding: 2px 6px; }

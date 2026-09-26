@@ -1,0 +1,128 @@
+/* ============================================================
+   TPCL DESIGN SYSTEM — EXTENSIONS
+   Patterns that the spec pages repeat but tokens.css does not name.
+   Every value here is lifted from the Claude Design prototypes or
+   from the rules written on those pages. tokens.css stays verbatim.
+   ============================================================ */
+
+:root {
+  /* Deltas are the only non-brand colours in the system, and only on deltas.
+     Darkened on white, lightened on charcoal, so both pass AA. */
+  --tp-up:            #1E7A46;
+  --tp-down:          #B00020;
+  --tp-up-on-dark:    #5BD68F;
+  --tp-down-on-dark:  #FF8A80;
+  /* Logo tint treatment (2021 brand master). */
+  --tp-logo-tint:     #57585A;
+  /* Neutral backdrop the template previews sit on. */
+  --tp-canvas-bg:     #EDEEF0;
+}
+
+/* ---------- Surfaces ---------- */
+/* Blue-gray panel as a surface in its own right (split RHS, CTA band). */
+.tp-panel { background: var(--tp-bluegray); color: var(--tp-charcoal); }
+.tp-deep  { background: var(--tp-charcoal-deep); color: var(--tp-white); }
+
+/* ---------- Buttons: states (rules from components/buttons) ----------
+   Hover shifts the fill one step darker, or on ghost fills with the border
+   colour. No lift, no shadow, no scale. Focus is never removed. */
+.tp-btn { transition: background-color .12s linear, color .12s linear; }
+.tp-btn--primary:hover   { background: color-mix(in srgb, var(--tp-cyan) 86%, var(--tp-charcoal)); }
+.tp-btn--secondary:hover { background: color-mix(in srgb, var(--tp-amber) 86%, var(--tp-charcoal)); }
+.tp-btn--solid:hover     { background: var(--tp-charcoal-deep); }
+.tp-btn--ghost:hover     { background: var(--tp-charcoal); color: var(--tp-white); }
+.tp-dark .tp-btn--ghost:hover { background: var(--tp-cyan); color: var(--tp-charcoal); }
+.tp-btn:focus-visible    { outline: 2px solid var(--tp-charcoal); outline-offset: 3px; }
+.tp-dark .tp-btn:focus-visible { outline-color: var(--tp-cyan); }
+.tp-btn:disabled, .tp-btn[aria-disabled="true"] { cursor: not-allowed; opacity: .5; }
+button.tp-btn { -webkit-appearance: none; appearance: none; }
+
+/* ---------- Index chip: placement + inversion ---------- */
+.tp-chip--edge  { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+/* On a blue-gray panel the chip inverts to charcoal, or it disappears. */
+.tp-chip--inverse { background: var(--tp-charcoal); }
+
+/* ---------- Timeline: halo always matches the surface ---------- */
+.tp-panel .tp-timeline > li::before,
+.tp-split-panel .tp-timeline > li::before { box-shadow: 0 0 0 4px var(--tp-bluegray); }
+
+/* Horizontal variant — for 16:9 slides and wide web sections. */
+.tp-htl { display: grid; grid-template-columns: repeat(var(--tp-htl-cols, 4), 1fr);
+  position: relative; padding-top: 34px; margin: 0; list-style: none; padding-left: 0; }
+.tp-htl::before { content: ""; position: absolute; top: 22px; left: 6%; right: 6%;
+  height: 2px; background: var(--tp-cyan); }
+.tp-htl > li { position: relative; padding-right: var(--tp-5); }
+.tp-htl > li::before { content: ""; position: absolute; top: -18px; left: 0;
+  width: 12px; height: 12px; border-radius: 50%; background: var(--tp-cyan);
+  box-shadow: 0 0 0 4px var(--tp-charcoal); }
+.tp-light .tp-htl > li::before { box-shadow: 0 0 0 4px var(--tp-white); }
+
+/* Time label on every timeline item: cyan Medium uppercase. */
+.tp-phase { font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--tp-cyan); font-weight: 500; }
+
+/* ---------- Stat tiles & KPI row ---------- */
+.tp-kpi { display: grid; grid-template-columns: repeat(var(--tp-kpi-cols, 4), 1fr); }
+.tp-kpi > * { padding: 26px 24px; border-left: 1px solid var(--tp-rule); }
+.tp-kpi > *:first-child { border-left: 0; padding-left: 0; }
+.tp-dark .tp-kpi > * { border-left-color: var(--tp-charcoal-soft); }
+.tp-stat .tp-stat-value--accent { color: var(--tp-cyan); }
+
+.tp-delta { font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+.tp-delta--up   { color: var(--tp-up); }
+.tp-delta--down { color: var(--tp-down); }
+.tp-dark .tp-delta--up   { color: var(--tp-up-on-dark); }
+.tp-dark .tp-delta--down { color: var(--tp-down-on-dark); }
+
+.tp-spark { display: block; margin-top: 12px; }
+
+/* Provenance chip — Measured · Modelled · Assumed. Non-negotiable. */
+.tp-prov { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+  padding: 2px 6px; display: inline-block; }
+.tp-prov--measured { background: var(--tp-cyan); color: var(--tp-charcoal); }
+.tp-prov--modelled { background: var(--tp-charcoal); color: var(--tp-white); }
+.tp-prov--assumed  { background: var(--tp-surface); color: var(--tp-ink-muted);
+  border: 1px solid var(--tp-rule); }
+
+/* ---------- Tables ---------- */
+.tp-table th.tp-n { text-align: right; }
+.tp-table .tp-total td { font-weight: 700; }
+.tp-dark .tp-table th { color: rgba(255,255,255,.6); border-bottom-color: var(--tp-white); }
+.tp-dark .tp-table td { border-bottom-color: var(--tp-charcoal-soft); }
+.tp-table-scroll { overflow-x: auto; }
+
+/* In-cell trend bars. */
+.tp-bars { display: flex; gap: 3px; align-items: flex-end; height: 20px; }
+.tp-bars > i { display: block; width: 5px; background: var(--tp-bluegray); }
+
+/* ---------- Quote ---------- */
+.tp-quote footer { margin-top: 16px; font-size: 14px; color: var(--tp-ink-muted); font-style: normal; }
+.tp-quote footer strong { color: var(--tp-ink); font-weight: 500; }
+.tp-dark .tp-quote footer { color: var(--tp-on-dark-muted); }
+.tp-dark .tp-quote footer strong { color: var(--tp-white); }
+
+/* ---------- Canvas guides ---------- */
+.tp-zone { position: absolute; left: 0; right: 0; background: rgba(0,188,212,.10);
+  border: 2px dashed rgba(0,188,212,.6); pointer-events: none; }
+.tp-zone > span { position: absolute; left: 24px; top: 16px; font-size: 22px; letter-spacing: .12em;
+  text-transform: uppercase; color: #0097A7; font-weight: 500; }
+.tp-zone--on-dark > span { color: var(--tp-cyan); }
+.tp-keepout { position: absolute; border: 2px dashed rgba(0,188,212,.65);
+  background: rgba(0,188,212,.10); border-radius: 50%; pointer-events: none; }
+.tp-keepout--square { border-radius: 0; }
+.tp-keepout > span { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--tp-cyan);
+  font-weight: 500; text-align: center; line-height: 1.4; width: 150px; }
+.tp-keepout--square > span { color: #0097A7; }
+
+/* ---------- Nested modes ----------
+   tokens.css keys light-mode overrides off any .tp-light ancestor, so a dark
+   surface inside a light page would inherit charcoal strokes and white halos.
+   The nearest surface wins. */
+.tp-dark .tp-outline, .tp-dark .tp-outline-card { border-color: var(--tp-cyan); }
+.tp-dark .tp-light .tp-outline, .tp-dark .tp-light .tp-outline-card { border-color: var(--tp-charcoal); }
+.tp-dark .tp-timeline > li::before, .tp-dark .tp-htl > li::before { box-shadow: 0 0 0 4px var(--tp-charcoal); }
+.tp-dark .tp-light .tp-timeline > li::before, .tp-dark .tp-light .tp-htl > li::before { box-shadow: 0 0 0 4px var(--tp-white); }
+.tp-dark .tp-card--dark .tp-timeline > li::before { box-shadow: 0 0 0 4px var(--tp-charcoal-soft); }
+.tp-dark .tp-muted { color: var(--tp-on-dark-muted); }
+.tp-dark .tp-light .tp-muted { color: var(--tp-ink-muted); }

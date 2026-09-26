@@ -1,0 +1,7 @@
+/* TPCL design system — full stylesheet. Import once at the app root:
+   import '@tpcl/design-system/styles.css'; */
+@import './fonts.css';
+@import './tokens.css';
+@import './logo.css';
+@import './extensions.css';
+@import '../templates/templates.css';

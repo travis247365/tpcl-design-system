@@ -1,0 +1,109 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": []
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--tp-1",
+      "--tp-10",
+      "--tp-2",
+      "--tp-3",
+      "--tp-4",
+      "--tp-5",
+      "--tp-6",
+      "--tp-7",
+      "--tp-8",
+      "--tp-9",
+      "--tp-amber",
+      "--tp-bluegray",
+      "--tp-charcoal",
+      "--tp-charcoal-deep",
+      "--tp-charcoal-soft",
+      "--tp-client",
+      "--tp-client-ink",
+      "--tp-cyan",
+      "--tp-font",
+      "--tp-hairline",
+      "--tp-ink",
+      "--tp-ink-faint",
+      "--tp-ink-muted",
+      "--tp-on-dark-muted",
+      "--tp-radius",
+      "--tp-radius-pill",
+      "--tp-rule",
+      "--tp-rule-weight",
+      "--tp-surface",
+      "--tp-white"
+    ],
+    "tokenKinds": {
+      "--tp-charcoal": "color",
+      "--tp-charcoal-deep": "color",
+      "--tp-charcoal-soft": "color",
+      "--tp-white": "color",
+      "--tp-bluegray": "color",
+      "--tp-cyan": "color",
+      "--tp-amber": "color",
+      "--tp-ink": "color",
+      "--tp-ink-muted": "color",
+      "--tp-ink-faint": "color",
+      "--tp-rule": "color",
+      "--tp-surface": "color",
+      "--tp-on-dark-muted": "color",
+      "--tp-client": "color",
+      "--tp-client-ink": "color",
+      "--tp-font": "font",
+      "--tp-1": "spacing",
+      "--tp-2": "spacing",
+      "--tp-3": "spacing",
+      "--tp-4": "spacing",
+      "--tp-5": "spacing",
+      "--tp-6": "spacing",
+      "--tp-7": "spacing",
+      "--tp-8": "spacing",
+      "--tp-9": "spacing",
+      "--tp-10": "spacing",
+      "--tp-radius": "radius",
+      "--tp-radius-pill": "radius",
+      "--tp-hairline": "spacing",
+      "--tp-rule-weight": "font"
+    },
+    "fontFamilies": []
+  }
+}

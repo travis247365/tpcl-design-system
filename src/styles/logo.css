@@ -1,0 +1,7 @@
+/* M3 · Signature logo cuts. tokens.css defines .tp-mark (locked 760:395 ratio);
+   the prototypes' bundler injected these three classes as data URIs. */
+.tp-mark--white  { background-image: url('../assets/logo/tpc_white.png'); }
+.tp-mark--black  { background-image: url('../assets/logo/tpc_black.png'); }
+.tp-mark--colour { background-image: url('../assets/logo/tpc_colour.png'); }
+/* Fourth approved treatment. Never below 40% or the caps disappear. */
+.tp-mark--tint   { background-image: url('../assets/logo/tpc_black.png'); opacity: .62; }

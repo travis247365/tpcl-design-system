@@ -1,0 +1,8 @@
+node_modules/
+dist/
+docs-dist/
+exports/
+*.tsbuildinfo
+.DS_Store
+*.bundle
+tpcl-exports.zip

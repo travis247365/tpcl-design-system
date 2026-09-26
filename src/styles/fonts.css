@@ -1,0 +1,24 @@
+/* Poppins — the three weights TPCL owns. Latin-1 subset, extracted from the
+   Claude Design handoff. Glyphs outside Latin-1 (→ ▲ ▼ − ✕) fall back to the
+   stack in --tp-font, exactly as they do in the prototypes. */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/poppins-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/poppins-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/poppins-700.woff2') format('woff2');
+}

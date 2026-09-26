@@ -1,0 +1,129 @@
+/* ============================================================
+   Docs app chrome + per-page demo styles. Page-specific rules are
+   scoped under .pg-<page> and lifted from each prototype's <style>.
+   ============================================================ */
+
+/* ---------- Shell ---------- */
+.doc-shell { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
+.doc-side { background: var(--tp-charcoal); color: var(--tp-white); padding: 28px 24px 40px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.doc-side .tp-mark { margin: 0 0 28px; }
+.doc-side h2 { font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--tp-cyan); margin: 24px 0 8px; }
+.doc-side a { display: block; color: rgba(255,255,255,.72); text-decoration: none; font-size: 14px; padding: 5px 0 5px 12px;
+  border-left: 3px solid transparent; }
+.doc-side a:hover { color: var(--tp-white); }
+.doc-side a[aria-current="page"] { color: var(--tp-white); border-left-color: var(--tp-cyan); }
+.doc-side a:focus-visible { outline: 2px solid var(--tp-cyan); outline-offset: 2px; }
+.doc-side .doc-ver { font-size: 11px; color: rgba(255,255,255,.42); margin-top: 32px; }
+.doc-main { min-width: 0; overflow-x: auto; }
+.doc-menu { display: none; }
+@media (max-width: 860px) {
+  .doc-shell { grid-template-columns: 1fr; }
+  .doc-side { position: static; height: auto; display: none; }
+  .doc-shell.is-open .doc-side { display: block; }
+  .doc-menu { display: flex; align-items: center; justify-content: space-between; background: var(--tp-charcoal);
+    padding: 14px 16px; }
+  .doc-menu button { font: inherit; }
+}
+
+/* Bare/export mode: page only, no chrome. */
+.doc-bare { background: var(--tp-white); }
+
+/* ---------- Kit ---------- */
+.doc-lab { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--tp-ink-muted); margin: 0 0 10px; }
+.tp-dark .doc-lab { color: rgba(255,255,255,.55); }
+.doc-rules { padding-left: 18px; }
+.doc-rules.rules-spaced li { margin-bottom: 10px; }
+
+.doc-template { background: var(--tp-canvas-bg); padding: 0 24px 24px; min-height: 100%; width: max-content; min-width: 100%; }
+.doc-ttag { font-family: var(--tp-font); font-size: 13px; font-weight: 500; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--tp-ink-muted); padding: 26px 4px 10px; margin: 0; }
+.doc-tnotes { padding: 28px 4px 40px; font-family: var(--tp-font); color: var(--tp-charcoal); }
+.doc-tnotes-title { font-size: 15px; font-weight: 500; margin: 0 0 8px; }
+.doc-tnotes-body { font-size: 13.5px; line-height: 1.6; color: var(--tp-ink-muted); margin: 0; }
+.doc-tnotes-body strong { color: var(--tp-charcoal); font-weight: 700; }
+.doc-tnotes-body .tp-code { color: var(--tp-ink); }
+
+/* ---------- Overview ---------- */
+.pg-home .doc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.pg-home .doc-cards a { display: block; text-decoration: none; color: inherit; }
+.pg-home .doc-cards a:hover .tp-card { border-color: var(--tp-charcoal); }
+.pg-home .doc-cards a:focus-visible { outline: 2px solid var(--tp-charcoal); outline-offset: 3px; }
+
+/* ---------- Components: buttons ---------- */
+.pg-buttons .bay { padding: 30px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.pg-buttons .bay.light { border: 1px solid var(--tp-rule); }
+
+/* ---------- Components: cards / stats ---------- */
+.doc-g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.doc-g2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 720px) { .doc-g3, .doc-g2 { grid-template-columns: 1fr; } }
+
+/* ---------- Components: timeline ---------- */
+.pg-timeline .steprow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+/* ---------- Foundations: colour ---------- */
+.pg-colour .sw { border: 1px solid var(--tp-rule); }
+.pg-colour .sw .chip { height: 104px; display: flex; align-items: flex-end; padding: 12px; }
+.pg-colour .sw .meta { padding: 12px 14px 14px; }
+.pg-colour .sw .hex { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; letter-spacing: .02em; }
+.pg-colour .sw .role { font-size: 12px; color: var(--tp-ink-muted); margin-top: 4px; line-height: 1.45; }
+.pg-colour .sw .nm { font-weight: 500; font-size: 14px; }
+.pg-colour .pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: var(--tp-3); }
+.pg-colour .pair { padding: 14px 16px; }
+.pg-colour .pair .r { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; margin-top: 6px; opacity: .85; }
+.pg-colour .verdict { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em; padding: 2px 6px; }
+.pg-colour .ok { background: var(--tp-charcoal); color: var(--tp-white); }
+.pg-colour .no { background: var(--tp-down); color: var(--tp-white); }
+
+/* ---------- Foundations: layout ---------- */
+.pg-layout .sp { display: flex; align-items: center; gap: 14px; padding: 7px 0; }
+.pg-layout .sp .bar { background: var(--tp-cyan); height: 14px; }
+.pg-layout .sp .lbl { font-size: 12px; font-family: ui-monospace, "SF Mono", Menlo, monospace; width: 110px; color: var(--tp-ink-muted); }
+.pg-layout .cols { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; height: 80px; }
+.pg-layout .cols div { background: rgba(0,188,212,.16); border-top: 2px solid var(--tp-cyan); }
+.pg-layout .mini { border: 1px solid var(--tp-rule); aspect-ratio: 16/9; position: relative; overflow: hidden; }
+.pg-layout .mini .cap { position: absolute; bottom: 8px; left: 10px; font-size: 10.5px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--tp-ink-muted); }
+.pg-layout .mini.tp-dark .cap { color: rgba(255,255,255,.55); }
+.pg-layout .mini .ab { position: absolute; display: block; }
+.pg-layout .bl { background: var(--tp-bluegray); }
+
+/* ---------- Foundations: logo ---------- */
+.pg-logo .frame { position: relative; height: 230px; border: 1px solid var(--tp-rule); overflow: hidden; }
+.pg-logo .frame .cap { position: absolute; top: 12px; left: 14px; font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--tp-ink-muted); }
+.pg-logo .tp-dark.frame .cap { color: rgba(255,255,255,.55); }
+.pg-logo .center { display: flex; align-items: center; justify-content: center; }
+.pg-logo .clear { position: relative; display: inline-block; padding: 46px; background: var(--tp-surface); }
+.pg-logo .clear .guide { position: absolute; inset: 46px; outline: 1px dashed var(--tp-cyan); }
+.pg-logo .dont { border: 1px solid var(--tp-rule); padding: 0; overflow: hidden; }
+.pg-logo .dont .box { height: 130px; display: flex; align-items: center; justify-content: center; }
+.pg-logo .dont .lbl { padding: 10px 14px; font-size: 12.5px; border-top: 1px solid var(--tp-rule);
+  display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; }
+.pg-logo .x { color: var(--tp-down); font-weight: 700; }
+.pg-logo .swatch { padding: 14px 18px; min-width: 170px; }
+.pg-logo .swatch div { font-size: 11px; letter-spacing: .08em; margin-top: 6px; opacity: .85; }
+
+/* ---------- Foundations: motifs ---------- */
+.pg-motifs .m { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start;
+  padding: 28px 0; border-bottom: 1px solid var(--tp-rule); }
+.pg-motifs .m .demo { border: 1px solid var(--tp-rule); height: 190px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; }
+.pg-motifs .m .n { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--tp-ink-muted); }
+.pg-motifs .m h3 { margin: 8px 0 10px; }
+.pg-motifs .m .tp-note { max-width: 62ch; }
+@media (max-width: 720px) { .pg-motifs .m { grid-template-columns: 1fr; } }
+
+/* ---------- Foundations: typography ---------- */
+.pg-type .row { display: grid; grid-template-columns: 132px 1fr; gap: 20px; align-items: baseline;
+  padding: 18px 0; border-bottom: 1px solid var(--tp-rule); }
+.pg-type .row .spec { font-size: 11.5px; color: var(--tp-ink-muted); line-height: 1.5;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+.pg-type .wt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.pg-type .wt > div { border: 1px solid var(--tp-rule); padding: 20px; }
+.pg-type .wt .big { font-size: 40px; line-height: 1; margin-bottom: 10px; }
+.pg-type .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--tp-rule); }
+.pg-type .cmp > div { padding: 34px; }
+@media (max-width: 720px) { .pg-type .wt, .pg-type .cmp { grid-template-columns: 1fr; } }
